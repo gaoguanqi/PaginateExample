@@ -1,11 +1,12 @@
 package com.maple.paginateexample.paginate;
 
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.maple.paginateexample.R;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import es.dmoral.toasty.Toasty;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -71,6 +73,8 @@ public class MyActivity extends AppCompatActivity implements SwipeRefreshLayout.
         }
         mAdapter.notifyDataSetChanged();
         hideRefreshing();
+
+        Toasty.info(this,"刷新成功",Toast.LENGTH_SHORT, false).show();
     }
 
     @Override
