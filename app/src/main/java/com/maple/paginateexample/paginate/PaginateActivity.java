@@ -131,7 +131,8 @@ public class PaginateActivity extends AppCompatActivity implements SwipeRefreshL
 
 
     public void setLoadMessage(String msg) {
-        isLoadingMore = false;
+        isLoadingMore = true;
+        //isLoadingMore = false; //会重新加载
         if (loadMoreItem != null) {
             loadMoreItem.setViewText(msg);
         }
