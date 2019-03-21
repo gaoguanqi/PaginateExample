@@ -11,7 +11,6 @@ import android.widget.Button;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.PermissionUtils;
-import com.blankj.utilcode.util.Utils;
 import com.maple.paginateexample.paginate.MyActivity;
 import com.maple.paginateexample.paginate.PermissionAdapter;
 import com.maple.paginateexample.utils.LogUtils;
@@ -29,12 +28,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(MainActivity.this, PaginateActivity.class));
-                startActivity(new Intent(MainActivity.this, MyActivity.class));
-            }
+        findViewById(R.id.button).setOnClickListener(v -> {
+            //startActivity(new Intent(MainActivity.this, PaginateActivity.class));
+            startActivity(new Intent(MainActivity.this, MyActivity.class));
         });
         applyPermissions();
     }
