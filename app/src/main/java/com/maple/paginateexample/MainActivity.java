@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 mDialog = null;
                 PermissionUtils.launchAppDetailsSettings();
             });
+            mBuilder.cancelable(false);
             mBuilder.customView(view, false);
         }
 
