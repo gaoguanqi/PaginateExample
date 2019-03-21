@@ -113,6 +113,7 @@ public class PaginateActivity extends AppCompatActivity implements SwipeRefreshL
 
     @Override
     public void onRefresh() {
+        isLoadingMore = false;
         mData.clear();
         for (int i = 0; i < 10; i++) {
             mData.add("" + i);
