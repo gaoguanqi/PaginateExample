@@ -21,9 +21,13 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
     private Context mContext;
     private List<String> mData;
 
-    public PermissionAdapter(Context context, List<String> data) {
+    public PermissionAdapter(Context context) {
         this.mContext = context;
+    }
+
+    public void setData(List<String> data){
         this.mData = data;
+        notifyDataSetChanged();
     }
 
 

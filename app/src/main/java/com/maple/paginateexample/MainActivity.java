@@ -1,5 +1,6 @@
 package com.maple.paginateexample;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import com.maple.paginateexample.utils.LogUtils;
 import com.maple.paginateexample.utils.PermissionUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,10 +32,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findViewById(R.id.button).setOnClickListener(v -> {
             //startActivity(new Intent(MainActivity.this, PaginateActivity.class));
-            startActivity(new Intent(MainActivity.this, MyActivity.class));
+
+            String[] permissions = new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            };
+            if(PermissionUtils.isGranted(permissions)){
+                startActivity(new Intent(MainActivity.this, MyActivity.class));
+            }else {
+                List<String> p = new ArrayList<>(permissions.length);
+                for (String permission : permissions) {
+                    p.add(permission);
+                }
+                showPermissionFailDialog(p);
+            }
         });
+
         applyPermissions();
     }
+
 
 
     @Override
@@ -72,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showPermissionFailDialog(List<String> permissions) {
+
         if(mBuilder == null){
             mBuilder = new MaterialDialog.Builder(MainActivity.this);
             View view = MainActivity.this.getLayoutInflater().inflate(R.layout.layout_permissions, null, false);
@@ -79,8 +97,9 @@ public class MainActivity extends AppCompatActivity {
             LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
             manager.setOrientation(LinearLayoutManager.HORIZONTAL);
             recycler.setLayoutManager(manager);
-            mPermissionAdapter = new PermissionAdapter(MainActivity.this,permissions);
+            mPermissionAdapter = new PermissionAdapter(MainActivity.this);
             recycler.setAdapter(mPermissionAdapter);
+            mPermissionAdapter.setData(permissions);
             Button btnCancle = view.findViewById(R.id.btn_cancle);
             btnCancle.setOnClickListener(v -> {
                 if(mDialog != null && mDialog.isShowing()){
@@ -100,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             mBuilder.cancelable(false);
             mBuilder.customView(view, false);
         }
-
         if(mDialog == null){
             mDialog = mBuilder.show();
         }
