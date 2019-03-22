@@ -35,14 +35,17 @@ public class MainActivity extends AppCompatActivity {
 
             String[] permissions = new String[]{
                     Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA
             };
             if(PermissionUtils.isGranted(permissions)){
                 startActivity(new Intent(MainActivity.this, MyActivity.class));
             }else {
                 List<String> p = new ArrayList<>(permissions.length);
-                for (String permission : permissions) {
-                    p.add(permission);
+                for (int i = 0; i < permissions.length; i++) {
+                    if(!PermissionUtils.isGranted(permissions[i])){
+                        p.add(permissions[i]);
+                    }
                 }
                 showPermissionFailDialog(p);
             }
