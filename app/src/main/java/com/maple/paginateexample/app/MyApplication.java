@@ -2,7 +2,6 @@ package com.maple.paginateexample.app;
 
 import android.app.Application;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 
 import es.dmoral.toasty.Toasty;
