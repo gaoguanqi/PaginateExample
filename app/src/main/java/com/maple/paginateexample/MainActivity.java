@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.PermissionUtils;
+import com.maple.paginateexample.like.LikeActivity;
 import com.maple.paginateexample.paginate.MyActivity;
 import com.maple.paginateexample.paginate.PermissionAdapter;
 import com.maple.paginateexample.utils.LogUtils;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.btn_like).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LikeActivity.class)));
         findViewById(R.id.button).setOnClickListener(v -> {
             //startActivity(new Intent(MainActivity.this, PaginateActivity.class));
 
