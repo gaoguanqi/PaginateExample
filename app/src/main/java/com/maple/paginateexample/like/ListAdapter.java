@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.maple.paginateexample.R;
 import com.maple.paginateexample.widget.like.LikeButton;
+import com.maple.paginateexample.widget.like.OnLikeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,20 +20,16 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
     private Activity activity;
-    private List<Integer> numbers;
-    private final int max = 30;
+    private List<LikeBean> mData;
 
 
     public ListAdapter(Activity activity) {
         this.activity = activity;
     }
 
-    private void generateNumbers() {
-        numbers = new ArrayList<>();
-
-        for (int x = 1; x <= max; x++) {
-            numbers.add(x);
-        }
+    public void setData(List<LikeBean> data) {
+        this.mData = data;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -43,18 +40,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public void onBindViewHolder(ListViewHolder holder, int position) {
-
-        holder.title.setText(String.valueOf(position));
-        if (position % 2 == 0) {
-            holder.starButton.setLiked(true);
-        } else {
-            holder.starButton.setLiked(false);
-        }
+        holder.setData(mData.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return max;
+        return mData.size();
     }
 
 
@@ -66,6 +57,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             super(view);
             title = view.findViewById(R.id.title);
             starButton = view.findViewById(R.id.star_button);
+        }
+
+        public void setData(LikeBean bean) {
+            title.setText(bean.title);
+            starButton.setLiked(bean.hasLike);
+            starButton.setOnLikeListener(new OnLikeListener() {
+                @Override
+                public void liked(LikeButton likeButton) {
+                    bean.hasLike = true;
+                }
+
+                @Override
+                public void unLiked(LikeButton likeButton) {
+                    bean.hasLike = false;
+                }
+            });
         }
     }
 }
